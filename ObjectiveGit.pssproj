@@ -22,7 +22,7 @@
     <Version>1.0</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
-    <CmdletsToExport>Get-RepositoryStatus,Rebase-SvnRepository,Pull-SvnRepository,Stash-Changes,Restore-Changes,Checkout-Branch</CmdletsToExport>
+    <CmdletsToExport>Get-RepositoryStatus,Rebase-SvnRepository,Pull-SvnRepository,Stash-Changes,Restore-Changes,Checkout-Branch,Restore-Items</CmdletsToExport>
     <AliasesToExport />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Checkout-Branch.ps1" />
     <Compile Include="Restore-Changes.ps1" />
+    <Compile Include="Restore-Items.ps1" />
     <Compile Include="Stash-Changes.ps1" />
     <None Include="Build.ps1" />
     <None Include="commands.json" />
