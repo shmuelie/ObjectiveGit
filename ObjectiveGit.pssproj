@@ -18,7 +18,8 @@
     <PowerShellHostVersion />
     <PowerShellVersion />
     <ProcessorArchitecture />
-    <RequiredModules>ObjectiveGit</RequiredModules>
+    <RequiredModules>
+    </RequiredModules>
     <Version>1.0</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
