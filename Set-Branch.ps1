@@ -55,7 +55,7 @@ function Set-Branch
 		{
 			$ExtendedCLI += " --track"
 		}
-		$Output = (& "git -C $Repository checkout$ExtendedCLI $Branch") 2>&1
+		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Branch") 2>&1
 		if ($Output.GetType().Name -eq "ErrorRecord")
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE

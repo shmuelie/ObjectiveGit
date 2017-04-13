@@ -59,7 +59,7 @@ function Backup-Changes
 		{
 			$ExtendedCLI += " $Message"
 		}
-		$Output = (& "git -C $Repository stash save$ExtendedCLI") 2>&1
+		$Output = (Invoke-Expression -Command "git -C $Repository stash save$ExtendedCLI") 2>&1
 		if ($Output.GetType().Name -eq "ErrorRecord")
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
