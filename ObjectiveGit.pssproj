@@ -20,7 +20,7 @@
     <ProcessorArchitecture />
     <RequiredModules>
     </RequiredModules>
-    <Version>1.0</Version>
+    <Version>1.2</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
     <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items</CmdletsToExport>
