@@ -1,4 +1,4 @@
-function Stash-Changes
+function Backup-Changes
 {
 	<#
 		.Synopsis

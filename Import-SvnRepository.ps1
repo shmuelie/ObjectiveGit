@@ -1,4 +1,4 @@
-function Rebase-SvnRepository
+function Import-SvnRepository
 {
 	<#
 		.Synopsis

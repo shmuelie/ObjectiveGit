@@ -1,4 +1,4 @@
-function Pull-SvnRepository
+function Update-SvnRepository
 {
 	<#
 		.Synopsis

@@ -1,4 +1,4 @@
-function Checkout-Branch
+function Set-Branch
 {
 	<#
 		.Synopsis

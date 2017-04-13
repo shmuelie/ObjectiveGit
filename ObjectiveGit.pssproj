@@ -23,7 +23,7 @@
     <Version>1.0</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
-    <CmdletsToExport>Get-RepositoryStatus,Rebase-SvnRepository,Pull-SvnRepository,Stash-Changes,Restore-Changes,Checkout-Branch,Restore-Items</CmdletsToExport>
+    <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items</CmdletsToExport>
     <AliasesToExport />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -44,15 +44,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Checkout-Branch.ps1" />
+    <Compile Include="Set-Branch.ps1" />
     <Compile Include="Restore-Changes.ps1" />
     <Compile Include="Restore-Items.ps1" />
-    <Compile Include="Stash-Changes.ps1" />
+    <Compile Include="Backup-Changes.ps1" />
     <None Include="Build.ps1" />
     <None Include="commands.json" />
     <Compile Include="Get-RepositoryStatus.ps1" />
-    <Compile Include="Pull-SvnRepository.ps1" />
-    <Compile Include="Rebase-SvnRepository.ps1" />
+    <Compile Include="Update-SvnRepository.ps1" />
+    <Compile Include="Import-SvnRepository.ps1" />
     <Compile Include="ObjectiveGit.psd1" />
     <Compile Include="ObjectiveGit.psm1" />
     <None Include="ObjectiveGit.tests.ps1" />
