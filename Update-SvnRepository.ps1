@@ -44,13 +44,13 @@ function Update-SvnRepository
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose "Pulling Svn $Repository"
-		$ModifiedFilesCount = Get-RespositoryStatus -Repository $Repository | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
-		if ($ModifiedFilesCount -ge 0)
+		$ModifiedFilesCount = Get-RepositoryStatus -Repository $Repository | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
+		if ($ModifiedFilesCount -gt 0)
 		{
-			Stash-Changes -Repository $Repository
+			Backup-Changes -Repository $Repository
 		}
-		Rebase-SvnRepository -Repository $Repository -LocalTime $LocalTime -Parent $Parent -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize -Local $Local
-		if ($ModifiedFilesCount -ge 0)
+		Import-SvnRepository -Repository $Repository -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize
+		if ($ModifiedFilesCount -gt 0)
 		{
 			Restore-Changes -Repository $Repository
 		}
