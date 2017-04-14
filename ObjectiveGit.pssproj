@@ -44,6 +44,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Export-SvnRepository.ps1" />
     <Compile Include="Set-Branch.ps1" />
     <Compile Include="Restore-Changes.ps1" />
     <Compile Include="Restore-Items.ps1" />
