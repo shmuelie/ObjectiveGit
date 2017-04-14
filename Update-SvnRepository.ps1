@@ -43,7 +43,7 @@ function Update-SvnRepository
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
-		Write-Verbose "Pulling Svn $Repository"
+		Write-Verbose -Message "Updating SVN $Repository"
 		$ModifiedFilesCount = Get-RepositoryStatus -Repository $Repository | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
 		if ($ModifiedFilesCount -gt 0)
 		{
