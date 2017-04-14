@@ -49,7 +49,7 @@ function Update-SvnRepository
 		{
 			Backup-Changes -Repository $Repository
 		}
-		Import-SvnRepository -Repository $Repository -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize
+		Import-SvnRepository -Repository $Repository -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize -LocalTime:$LocalTime -Parent:$Parent -Local:$Local
 		if ($ModifiedFilesCount -gt 0)
 		{
 			Restore-Changes -Repository $Repository
