@@ -73,5 +73,10 @@ function Import-SvnRepository
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
 		}
+		if ($Output -cmatch 'Current branch\s\S+\s is up to date.')
+		{
+			Write-Verbose -Message $Output
+			return;
+		}
 	}
 }
