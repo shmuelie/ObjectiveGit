@@ -37,7 +37,7 @@ function Restore-Items
 			$ExtendedCLI += " -f"
 		}
 		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Files") 2>&1
-		if (($Output -eq $null) -or ($Output.GetType().Name -eq "ErrorRecord"))
+		if (($Output -ne $null) -and ($Output.GetType().Name -eq "ErrorRecord"))
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
 		}
