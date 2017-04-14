@@ -30,7 +30,7 @@ function Restore-Items
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
-		Write-Verbose "Checking out files $Files in $Repository"
+		Write-Verbose -Message "Checking out files $Files in $Repository"
 		$ExtendedCLI = "";
 		if ($Force)
 		{
