@@ -41,5 +41,6 @@ function Restore-Items
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
 		}
+		Write-Verbose -Message "Successfully checked out files $Files in $Repository"
 	}
 }
