@@ -55,10 +55,12 @@ function Set-Branch
 		{
 			$ExtendedCLI += " --track"
 		}
+		$ErrorCount = $Error.Count
 		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Branch") 2>&1
-		if ($Output -ne $null -and $Output.GetType().Name -eq "ErrorRecord")
+		if ($Error.Count -gt $ErrorCount)
 		{
-			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
+			$Error | select -Skip $ErrorCount | Write-Output
+			return
 		}
 		Write-Verbose -Message "Successfully checked out branch $Branch in $Repository"
 	}

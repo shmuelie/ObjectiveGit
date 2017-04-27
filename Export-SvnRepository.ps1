@@ -9,10 +9,12 @@ function Export-SvnRepository
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Committing SVN $Repository"
+		$ErrorCount = $Error.Count
 		$Output = (Invoke-Expression -Command "git -C $Repository svn dcommit") 2>&1
-		if ($Output.GetType().Name -eq "ErrorRecord")
+		if ($Error.Count -gt $ErrorCount)
 		{
-			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
+			$Error | select -Skip $ErrorCount | Write-Output
+			return
 		}
 		$Output = [string[]]$Output;
 		$CommitData = [PSCustomObject]@{}

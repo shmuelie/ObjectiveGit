@@ -68,15 +68,17 @@ function Import-SvnRepository
 		{
 			$ExtendedCLI += " --local"
 		}
+		$ErrorCount = $Error.Count
 		$Output = (Invoke-Expression -Command "git -C $Repository svn rebase -log-window-size=$LogWindowSize$ExtendedCLI") 2>&1
-		if ($Output.GetType().Name -eq "ErrorRecord")
+		if ($Error.Count -gt $ErrorCount)
 		{
-			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
+			$Error | select -Skip $ErrorCount | Write-Output
+			return
 		}
 		if ($Output -cmatch 'Current branch\s\S+\s is up to date.')
 		{
 			Write-Verbose -Message $Output
-			return;
+			return
 		}
 	}
 }

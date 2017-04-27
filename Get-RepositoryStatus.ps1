@@ -25,10 +25,12 @@ function Get-RepositoryStatus
 		$RepositoryData = [PSCustomObject]@{}
 		$Files = New-Object System.Collections.ArrayList
 		$RepositoryData | Add-Member -MemberType NoteProperty -Name 'RepoPath' -Value $Repository
+		$ErrorCount = $Error.Count
 		$Output = (git -C $Repository status --porcelain=2 -b) 2>&1
-		if ($Output.GetType().Name -eq "ErrorRecord")
+		if ($Error.Count -gt $ErrorCount)
 		{
-			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
+			$Error | select -Skip $ErrorCount | Write-Output
+			return
 		}
 		foreach ($line in $Output)
 		{
