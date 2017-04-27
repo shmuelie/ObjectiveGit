@@ -41,7 +41,7 @@ function Set-Branch
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
-		Write-Verbose "Checking out branch $Branch in $Repository"
+		Write-Verbose -Message "Checking out branch $Branch in $Repository"
 		$ExtendedCLI = "";
 		if ($CreateNew)
 		{
@@ -60,5 +60,6 @@ function Set-Branch
 		{
 			Write-Error -Message ($Output.Exception.Message) -CategoryActivity ($Output.Exception.Message.SubString(0, $Output.Exception.Message.IndexOf(":"))) -ErrorId $LASTEXITCODE
 		}
+		Write-Verbose -Message "Successfully checked out branch $Branch in $Repository"
 	}
 }
