@@ -47,7 +47,7 @@ function Import-SvnRepository
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose "Rebasing Svn $Repository"
-		$ExtendedCLI = "";
+		$ExtendedCLI = ""
 		if ($LocalTime)
 		{
 			$ExtendedCLI += " --localtime"
@@ -69,13 +69,13 @@ function Import-SvnRepository
 			$ExtendedCLI += " --local"
 		}
 		$ErrorCount = $Error.Count
-		$Output = (Invoke-Expression -Command "git -C $Repository svn rebase -log-window-size=$LogWindowSize$ExtendedCLI") 2>&1
+		$Output = (Invoke-Expression -Command "git -C $Repository svn rebase --log-window-size=$LogWindowSize$ExtendedCLI") 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
 			$Error | select -Skip $ErrorCount | Write-Output
 			return
 		}
-		if ($Output -cmatch 'Current branch\s\S+\s is up to date.')
+		if ($Output -cmatch 'Current branch\s\S+\sis up to date.')
 		{
 			Write-Verbose -Message $Output
 			return
