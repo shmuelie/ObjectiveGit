@@ -42,7 +42,7 @@ function Set-Branch
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Checking out branch $Branch in $Repository"
-		$ExtendedCLI = "";
+		$ExtendedCLI = ""
 		if ($CreateNew)
 		{
 			$ExtendedCLI += " -b"
