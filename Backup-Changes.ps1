@@ -63,7 +63,7 @@ function Backup-Changes
 		$Output = (Invoke-Expression -Command "git -C $Repository stash save$ExtendedCLI") 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
-			$Error | select -Skip $ErrorCount | Write-Output
+			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
 			return
 		}
 	}

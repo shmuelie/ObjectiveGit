@@ -72,7 +72,7 @@ function Import-SvnRepository
 		$Output = (Invoke-Expression -Command "git -C $Repository svn rebase --log-window-size=$LogWindowSize$ExtendedCLI") 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
-			$Error | select -Skip $ErrorCount | Write-Output
+			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
 			return
 		}
 		if ($Output -cmatch 'Current branch\s\S+\sis up to date.')

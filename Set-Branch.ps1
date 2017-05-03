@@ -59,7 +59,7 @@ function Set-Branch
 		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Branch") 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
-			$Error | select -Skip $ErrorCount | Write-Output
+			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
 			return
 		}
 		Write-Verbose -Message "Successfully checked out branch $Branch in $Repository"

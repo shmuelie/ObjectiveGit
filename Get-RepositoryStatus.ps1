@@ -29,7 +29,7 @@ function Get-RepositoryStatus
 		$Output = (git -C $Repository status --porcelain=2 -b) 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
-			$Error | select -Skip $ErrorCount | Write-Output
+			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
 			return
 		}
 		foreach ($line in $Output)
