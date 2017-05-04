@@ -2,7 +2,7 @@
 
 *Powershell Git*
 
-[![PowerShell Gallery](https://img.shields.io/badge/PowerShell%20Gallery-1.2-blue.svg)](https://www.powershellgallery.com/packages/ObjectiveGit/)
+[![PowerShell Gallery](https://img.shields.io/badge/PowerShell%20Gallery-1.7-blue.svg)](https://www.powershellgallery.com/packages/ObjectiveGit/)
 
 GIT commands, PowerShell style!
 
