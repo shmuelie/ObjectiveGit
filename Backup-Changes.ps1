@@ -41,7 +41,7 @@ function Backup-Changes
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
-		Write-Verbose "Stashing changes in $Repository"
+		Write-Verbose -Message "Stashing changes in $Repository"
 		$ExtendedCLI = "";
 		if ($KeepIndex)
 		{
