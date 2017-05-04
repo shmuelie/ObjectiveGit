@@ -59,6 +59,9 @@
     <Compile Include="ObjectiveGit.psm1" />
     <None Include="ObjectiveGit.tests.ps1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <Target Name="Build">
     <PropertyGroup>
       <AliasesToExport Condition="'$(AliasesToExport)' != ''"> -AliasesToExport $(AliasesToExport)</AliasesToExport>
