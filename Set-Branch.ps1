@@ -7,11 +7,11 @@ function Set-Branch
 		.Description
 		Updates files in the working tree to match the version in the specified tree.
 
-		.Parameter Repository
-		Path to the git repository. Can be relative or absolute. If not specified defaults to the current directory
-
 		.Parameter Branch
 		Branch to checkout
+
+		.Parameter Repository
+		Path to the git repository. Can be relative or absolute. If not specified defaults to the current directory
 
 		.Parameter CreateNew
 		Create a new branch
@@ -27,10 +27,9 @@ function Set-Branch
 	#>
 	[CmdletBinding()]
 	param(
-		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\",
-		[Parameter(Mandatory=$True)]
+		[Parameter(Mandatory=$True,ValueFromPipeline=$True)]
 		[string]$Branch,
+		[string]$Repository = ".\",
 		[Alias("b")]
 		[switch]$CreateNew = $False,
 		[Alias("f")]
