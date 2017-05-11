@@ -21,7 +21,7 @@ function Get-RepositoryStatus
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
-		Write-Verbose "Getting status of $Repository"
+		Write-Verbose -Message "Getting status of $Repository"
 		$RepositoryData = [PSCustomObject]@{}
 		$Files = New-Object System.Collections.ArrayList
 		$RepositoryData | Add-Member -MemberType NoteProperty -Name 'RepoPath' -Value $Repository
@@ -71,7 +71,7 @@ function Get-RepositoryStatus
 			}
 			else
 			{
-				Write-Verbose "Ignoring $line"
+				Write-Verbose -Message "Ignoring $line"
 			}
 		}
 		$RepositoryData | Add-Member -MemberType NoteProperty -Name "Files" -Value $Files
