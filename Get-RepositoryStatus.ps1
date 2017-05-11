@@ -46,28 +46,28 @@ function Get-RepositoryStatus
 			{
 				#   1    2     3    4    5    6    7    8
 				#1 <XY> <sub> <mH> <mI> <mW> <hH> <hI> <path>
-				$File = [PSCustomObject]@{}
-				$File | Add-Member -MemberType NoteProperty -Name "Path" -Value (Join-Path -Path $Repository -ChildPath $matches[8])
-				$File | Add-Member -MemberType NoteProperty -Name "Status" -Value ($matches[1])
-				$Files.Add($File) | Out-Null
+				$Files.Add([PSCustomObject]@{
+					Path = (Join-Path -Path $Repository -ChildPath $matches[8])
+					Status = $matches[1]
+				}) | Out-Null
 			}
 			elseif ($line -cmatch '2\s([\.MADRCU\?\!][\.MDUA]?)\s(N\.\.\.)\s([0-7]{6})\s([0-7]{6})\s([0-7]{6})\s([0-9a-f]{40})\s([0-9a-f]{40})\s([XC])(\d{3})\s(\S+)`t(\S*)')
 			{
 				#   1    2     3    4    5    6    7    8  9       10         11
 				#2 <XY> <sub> <mH> <mI> <mW> <hH> <hI> <X><score> <path><sep><origPath>
-				$File = [PSCustomObject]@{}
-				$File | Add-Member -MemberType NoteProperty -Name "Path" -Value (Join-Path -Path $Repository -ChildPath $matches[10])
-				$File | Add-Member -MemberType NoteProperty -Name "Status" -Value ($matches[1])
-				$File | Add-Member -MemberType NoteProperty -Name "OriginalPath" -Value (Join-Path -Path $Repository -ChildPath $matches[11])
-				$File | Add-Member -MemberType NoteProperty -Name "IsMove" -Value ($matches[8] -eq "C")
-				$Files.Add($File) | Out-Null
+				$Files.Add([PSCustomObject]@{
+					Path = (Join-Path -Path $Repository -ChildPath $matches[10])
+					Status = $matches[1]
+					OriginalPath = (Join-Path -Path $Repository -ChildPath $matches[11])
+					IsMove = ($matches[8] -eq "C")
+				}) | Out-Null
 			}
 			elseif ($line -cmatch '\?\s(\S+)')
 			{
-				$File = [PSCustomObject]@{}
-				$File | Add-Member -MemberType NoteProperty -Name "Path" -Value (Join-Path -Path $Repository -ChildPath $matches[1])
-				$File | Add-Member -MemberType NoteProperty -Name "Status" -Value "??"
-				$Files.Add($File) | Out-Null
+				$Files.Add([PSCustomObject]@{
+					Path = (Join-Path -Path $Repository -ChildPath $matches[1])
+					Status = "??"
+				}) | Out-Null
 			}
 			else
 			{
