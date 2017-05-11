@@ -16,6 +16,9 @@ function Restore-Items
 		.Parameter Force
 		When checking out paths from the index, do not fail upon unmerged entries; instead, unmerged entries are ignored.
 
+		.Parameter Source
+		Restore the item from a tree-ish location.
+
 		.Link
 		https://git-scm.com/docs/git-checkout
 	#>
@@ -25,7 +28,9 @@ function Restore-Items
 		[Parameter(Mandatory=$False)]
 		[string]$Repository = ".\",
 		[Alias("f")]
-		[switch]$Force = $False
+		[switch]$Force = $False,
+		[Parameter(Mandatory=$False)]
+		[string]$Source = $null
 	)
 	process
 	{
@@ -36,8 +41,12 @@ function Restore-Items
 		{
 			$ExtendedCLI += " -f"
 		}
+		if ([string]::IsNullOrWhiteSpace($Source) -eq $false)
+		{
+			$ExtendedCLI += " $Source"
+		}
 		$ErrorCount = $Error.Count
-		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Files") 2>&1
+		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI -- $Files") 2>&1
 		if ($Error.Count -gt $ErrorCount)
 		{
 			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
