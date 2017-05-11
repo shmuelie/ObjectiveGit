@@ -17,6 +17,11 @@ function Export-SvnRepository
 			return
 		}
 		$Output = [string[]]$Output;
+		if ($Output.Count -eq 1)
+		{
+			Write-Verbose -Message "Nothing to commit to SVN"
+			return
+		}
 		$CommitData = [PSCustomObject]@{}
 		$Files = New-Object System.Collections.ArrayList
 		for($i = 1; $i -lt $Output.Length; $i++)
