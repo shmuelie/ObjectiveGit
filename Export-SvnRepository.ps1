@@ -22,17 +22,16 @@ function Export-SvnRepository
 			Write-Verbose -Message "Nothing to commit to SVN"
 			return
 		}
-		$CommitData = [PSCustomObject]@{}
 		$Files = New-Object System.Collections.ArrayList
 		for($i = 1; $i -lt $Output.Length; $i++)
 		{
 			$Line = $Output[$i]
 			if ($Line -cmatch '\s+(\S+)\s+(\S+)')
 			{
-				$File = [PSCustomObject]@{}
-				$File | Add-Member -MemberType NoteProperty -Name "Status" -Value ($Matches[1])
-				$File | Add-Member -MemberType NoteProperty -Name "Path" -Value ($Matches[2])
-				$Files.Add($File) | Out-Null
+				$Files.Add([PSCustomObject]@{
+					Status = $Matches[1]
+					Path = $Matches[2]
+				}) | Out-Null
 			}
 			elseif ($Line -cmatch 'Committed r\d+')
 			{
@@ -40,11 +39,11 @@ function Export-SvnRepository
 			}
 			elseif ($Line -cmatch '(r\d+)\s=\s([0-9a-f]{40}).*')
 			{
-				$CommitData | Add-Member -MemberType NoteProperty -Name "Files" -Value $Files
-				$CommitData | Add-Member -MemberType NoteProperty -Name "SvnCommit" -Value ($Matches[1])
-				$CommitData | Add-Member -MemberType NoteProperty -Name "GitCommit" -Value ($Matches[2])
-				Write-Output $CommitData
-				$CommitData = [PSCustomObject]@{}
+				Write-Output ([PSCustomObject]@{
+					Files = $Files
+					SvnCommit = $Matches[1]
+					GitCommit = $Matches[2]
+				})
 				$Files = New-Object System.Collections.ArrayList
 			}
 		}
