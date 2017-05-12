@@ -1,5 +1,18 @@
 function Export-SvnRepository
 {
+	<#
+		.Synopsis
+		Commit each diff from the current branch directly to the SVN repository, and then rebase or reset.
+
+		.Description
+		This will create a revision in SVN for each commit in Git.
+
+		.Parameter Repository
+		Path to the git repository. Can be relative or absolute. If not specified defaults to the current directory
+
+		.Link
+		https://git-scm.com/docs/git-svn#git-svn-emdcommitem
+	#>
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
