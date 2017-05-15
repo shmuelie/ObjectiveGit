@@ -39,7 +39,7 @@ function Export-SvnRepository
 		for($i = 1; $i -lt $Output.Length; $i++)
 		{
 			$Line = $Output[$i]
-			if ($Line -cmatch '\s+(\S+)\s+(\S+)')
+			if ($Line -cmatch '\s+([\.MADRCU\?\!][\.MDUA]?)\s+(\S+)')
 			{
 				$Files.Add([PSCustomObject]@{
 					Status = $Matches[1]
