@@ -23,7 +23,7 @@
     <Version>1.7</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
-    <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items,Get-Branch</CmdletsToExport>
+    <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items,Get-Branch,Export-SvnRepository</CmdletsToExport>
     <AliasesToExport />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
