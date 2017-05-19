@@ -75,10 +75,18 @@ function Import-SvnRepository
 			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
 			return
 		}
-		if ($Output -cmatch 'Current branch\s\S+\sis up to date.')
+		if (($Output.GetType().Name -ieq "string") -and ($Output -cmatch 'Current branch\s\S+\sis up to date.'))
 		{
 			Write-Verbose -Message $Output
 			return
+		}
+		foreach($line in $Output)
+		{
+			if ($line -cmatch '(.+)\:\sneeds\supdate')
+			{
+				$file = $Matches[1]
+				Write-Error -Message "$file is not commited. Either Backup-Changes or commit" -Category InvalidOperation
+			}
 		}
 	}
 }
