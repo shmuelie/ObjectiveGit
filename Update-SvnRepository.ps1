@@ -5,7 +5,7 @@ function Update-SvnRepository
 		This fetches revisions from the SVN parent of the current HEAD and rebases the current (uncommitted to SVN) work against it.
 
 		.Description
-		This works similarly to svn update or git pull except that it preserves linear history with git rebase instead of git merge for ease of dcommitting with git svn. Unlike Rebase-SvnRepository ther can be local changes.
+		This works similarly to svn update or git pull except that it preserves linear history with git rebase instead of git merge for ease of dcommit-ing with git svn. Unlike Import-SvnRepository there can be local changes.
 
 		.Parameter Repository
 		Path to the git repository. Can be relative or absolute. If not specified defaults to the current directory
