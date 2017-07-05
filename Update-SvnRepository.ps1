@@ -44,12 +44,22 @@ function Update-SvnRepository
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Updating SVN $Repository"
-		$ModifiedFilesCount = Get-RepositoryStatus -Repository $Repository | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
+		$RepositoryStatus = Get-RepositoryStatus -Repository $Repository
+		$WorkingBranch = $RepositoryStatus | Select-Object -ExpandProperty CurrentBranch
+		$ModifiedFilesCount = $RepositoryStatus | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
 		if ($ModifiedFilesCount -gt 0)
 		{
 			Backup-Changes -Repository $Repository
 		}
+		if ($WorkingBranch -ne "master")
+		{
+			Set-Branch -Repository $Repository -Branch master
+		}
 		Import-SvnRepository -Repository $Repository -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize -LocalTime:$LocalTime -Parent:$Parent -Local:$Local
+		if ($WorkingBranch -ne "master")
+		{
+			Set-Branch -Repository $Repository -Branch $WorkingBranch
+		}
 		if ($ModifiedFilesCount -gt 0)
 		{
 			Restore-Changes -Repository $Repository
