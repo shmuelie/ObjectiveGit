@@ -45,12 +45,22 @@ function Restore-Items
 		{
 			$ExtendedCLI += " $Source"
 		}
-		$ErrorCount = $Error.Count
 		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI -- $Files") 2>&1
-		if ($Error.Count -gt $ErrorCount)
+		if (($LASTEXITCODE -eq 128) -or($LASTEXITCODE -eq -1))
 		{
-			$Error | select -Skip $ErrorCount | ForEach-Object { Write-Error -ErrorRecord $_ }
+			Write-Error -Message $Output -Category FromStdErr
 			return
+		}
+		if ($LASTEXITCODE -eq 129)
+		{
+			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			return
+		}
+		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
+		if (($ErrorsInOutput | Measure-Object | Select-Object -ExpandProperty Count) -gt 0)
+		{
+			$ErrorsInOutput | ForEach-Object -Process { Write-Error -ErrorRecord $_ }
+			return;
 		}
 		Write-Verbose -Message "Successfully checked out files $Files in $Repository"
 	}
