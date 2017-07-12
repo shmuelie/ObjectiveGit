@@ -23,8 +23,9 @@
     <Version>1.7</Version>
     <ProjectType>PowerShell</ProjectType>
     <VariablesToExport />
-    <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items,Get-Branch,Export-SvnRepository,Remove-Branch</CmdletsToExport>
+    <CmdletsToExport>Get-RepositoryStatus,Import-SvnRepository,Update-SvnRepository,Backup-Changes,Restore-Changes,Set-Branch,Restore-Items,Get-Branch,Export-SvnRepository,Remove-Branch,Set-Config</CmdletsToExport>
     <AliasesToExport />
+    <ManifestPath>$(OutDir)\$(ProjectName).psd1</ManifestPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +55,7 @@
     <None Include="Build.ps1" />
     <None Include="commands.json" />
     <Compile Include="Get-RepositoryStatus.ps1" />
+    <Compile Include="Set-Config.ps1" />
     <Compile Include="Update-SvnRepository.ps1" />
     <Compile Include="Import-SvnRepository.ps1" />
     <Compile Include="ObjectiveGit.psd1" />
