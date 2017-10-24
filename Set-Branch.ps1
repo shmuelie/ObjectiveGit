@@ -65,7 +65,7 @@ function Set-Branch
 			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
 			return
 		}
-		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
+		$ErrorsInOutput = $Output | Where-Object -FilterScript { ($_ -is [System.Management.Automation.ErrorRecord]) -and (-not $_.ToString().StartsWith("Switched to branch")) }
 		if (($ErrorsInOutput | Measure-Object | Select-Object -ExpandProperty Count) -gt 0)
 		{
 			$ErrorsInOutput | ForEach-Object -Process { Write-Error -ErrorRecord $_ }
