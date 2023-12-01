@@ -16,7 +16,7 @@ function Export-SvnRepository
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\"
+		[string]$Repository = '.\'
 	)
 	process
 	{
@@ -30,7 +30,7 @@ function Export-SvnRepository
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
@@ -42,7 +42,7 @@ function Export-SvnRepository
 		$Output = [string[]]$Output;
 		if ($Output.Count -eq 1)
 		{
-			Write-Verbose -Message "Nothing to commit to SVN"
+			Write-Verbose -Message 'Nothing to commit to SVN'
 			return
 		}
 		$Files = New-Object System.Collections.ArrayList

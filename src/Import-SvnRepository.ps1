@@ -34,39 +34,39 @@ function Import-SvnRepository
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\",
+		[string]$Repository = '.\',
 		[switch]$LocalTime = $False,
 		[switch]$Parent = $False,
 		[regex]$IgnorePaths = $null,
 		[regex]$IncludePaths = $null,
 		[int]$LogWindowSize = 100,
-		[Alias("l")]
+		[Alias('l')]
 		[switch]$Local = $False
 	)
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose "Rebasing Svn $Repository"
-		$ExtendedCLI = ""
+		$ExtendedCLI = ''
 		if ($LocalTime)
 		{
-			$ExtendedCLI += " --localtime"
+			$ExtendedCLI += ' --localtime'
 		}
 		if ($Parent)
 		{
-			$ExtendedCLI += " --parent"
+			$ExtendedCLI += ' --parent'
 		}
 		if ($IgnorePaths -ne $null)
 		{
-			$ExtendedCLI += " --ignore-paths=$IgnorePaths"
+			$ExtendedCLI += ' --ignore-paths=$IgnorePaths'
 		}
 		if ($IncludePaths -ne $null)
 		{
-			$ExtendedCLI += " --include-paths=$IncludePaths"
+			$ExtendedCLI += ' --include-paths=$IncludePaths'
 		}
 		if ($Local)
 		{
-			$ExtendedCLI += " --local"
+			$ExtendedCLI += ' --local'
 		}
 		$Output = (Invoke-Expression -Command "git -C $Repository svn rebase --log-window-size=$LogWindowSize$ExtendedCLI") 2>&1
 		if (($LASTEXITCODE -eq 128) -or($LASTEXITCODE -eq -1))
@@ -76,7 +76,7 @@ function Import-SvnRepository
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
@@ -85,7 +85,7 @@ function Import-SvnRepository
 			$ErrorsInOutput | ForEach-Object -Process { Write-Error -ErrorRecord $_ }
 			return;
 		}
-		if (($Output.GetType().Name -ieq "string") -and ($Output -cmatch 'Current branch\s\S+\sis up to date.'))
+		if (($Output.GetType().Name -ieq 'string') -and ($Output -cmatch 'Current branch\s\S+\sis up to date.'))
 		{
 			Write-Verbose -Message $Output
 			return

@@ -31,13 +31,13 @@ function Update-SvnRepository
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\",
+		[string]$Repository = '.\',
 		[switch]$LocalTime = $False,
 		[switch]$Parent = $False,
 		[regex]$IgnorePaths = $null,
 		[regex]$IncludePaths = $null,
 		[int]$LogWindowSize = 100,
-		[Alias("L")]
+		[Alias('L')]
 		[switch]$Local = $False
 	)
 	process
@@ -46,17 +46,17 @@ function Update-SvnRepository
 		Write-Verbose -Message "Updating SVN $Repository"
 		$RepositoryStatus = Get-RepositoryStatus -Repository $Repository
 		$WorkingBranch = $RepositoryStatus | Select-Object -ExpandProperty CurrentBranch
-		$ModifiedFilesCount = $RepositoryStatus | Select-Object -ExpandProperty Files | Where-Object Status -EQ ".M" | Measure-Object | Select-Object -ExpandProperty Count
+		$ModifiedFilesCount = $RepositoryStatus | Select-Object -ExpandProperty Files | Where-Object Status -EQ '.M' | Measure-Object | Select-Object -ExpandProperty Count
 		if ($ModifiedFilesCount -gt 0)
 		{
 			Backup-Changes -Repository $Repository
 		}
-		if ($WorkingBranch -ne "master")
+		if ($WorkingBranch -ne 'master')
 		{
 			Set-Branch -Repository $Repository -Branch master
 		}
 		Import-SvnRepository -Repository $Repository -IgnorePaths $IgnorePaths -IncludePaths $IncludePaths -LogWindowSize $LogWindowSize -LocalTime:$LocalTime -Parent:$Parent -Local:$Local
-		if ($WorkingBranch -ne "master")
+		if ($WorkingBranch -ne 'master')
 		{
 			Set-Branch -Repository $Repository -Branch $WorkingBranch
 		}

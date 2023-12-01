@@ -26,8 +26,8 @@ function Restore-Items
 		[Parameter(Mandatory=$True,Position=1,ValueFromPipeline=$True)]
 		[string[]]$Files,
 		[Parameter(Mandatory=$False)]
-		[string]$Repository = ".\",
-		[Alias("f")]
+		[string]$Repository = '.\',
+		[Alias('f')]
 		[switch]$Force = $False,
 		[Parameter(Mandatory=$False)]
 		[string]$Source = $null
@@ -36,10 +36,10 @@ function Restore-Items
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Checking out files $Files in $Repository"
-		$ExtendedCLI = "";
+		$ExtendedCLI = '';
 		if ($Force)
 		{
-			$ExtendedCLI += " -f"
+			$ExtendedCLI += ' -f'
 		}
 		if ([string]::IsNullOrWhiteSpace($Source) -eq $false)
 		{
@@ -53,7 +53,7 @@ function Restore-Items
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }

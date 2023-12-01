@@ -28,9 +28,9 @@
 		[string]$Property,
 		[Parameter(Mandatory=$True,Position=1)]
 		[string]$Value,
-		[string]$Repository = ".\",
-		[ValidateSet("local","global","system")]
-		[string]$Location = "local"
+		[string]$Repository = '.\',
+		[ValidateSet('local','global','system')]
+		[string]$Location = 'local'
 	)
 	process
 	{
@@ -44,22 +44,22 @@
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		if ($LASTEXITCODE -eq 1)
 		{
-			Write-Error -Message "Invalid Property" -Category InvalidArgument
+			Write-Error -Message 'Invalid Property' -Category InvalidArgument
 			return
 		}
 		if ($LASTEXITCODE -eq 3)
 		{
-			Write-Error -Message "Configuration data is corrupt" -Category ReadError
+			Write-Error -Message 'Configuration data is corrupt' -Category ReadError
 			return
 		}
 		if ($LASTEXITCODE -eq 4)
 		{
-			Write-Error -Message "Cannot write configuration" -Category WriteError
+			Write-Error -Message 'Cannot write configuration' -Category WriteError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }

@@ -29,30 +29,30 @@ function Set-Branch
 	param(
 		[Parameter(Mandatory=$True,ValueFromPipeline=$True)]
 		[string]$Branch,
-		[string]$Repository = ".\",
-		[Alias("b")]
+		[string]$Repository = '.\',
+		[Alias('b')]
 		[switch]$CreateNew = $False,
-		[Alias("f")]
+		[Alias('f')]
 		[switch]$Force = $False,
-		[Alias("t")]
+		[Alias('t')]
 		[switch]$Track = $False
 	)
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Checking out branch $Branch in $Repository"
-		$ExtendedCLI = ""
+		$ExtendedCLI = ''
 		if ($CreateNew)
 		{
-			$ExtendedCLI += " -b"
+			$ExtendedCLI += ' -b'
 		}
 		if ($Force)
 		{
-			$ExtendedCLI += " -f"
+			$ExtendedCLI += ' -f'
 		}
 		if ($Track)
 		{
-			$ExtendedCLI += " --track"
+			$ExtendedCLI += ' --track'
 		}
 		$Output = (Invoke-Expression -Command "git -C $Repository checkout$ExtendedCLI $Branch") 2>&1
 		if (($LASTEXITCODE -eq 128) -or($LASTEXITCODE -eq -1))
@@ -62,10 +62,10 @@ function Set-Branch
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
-		$ErrorsInOutput = $Output | Where-Object -FilterScript { ($_ -is [System.Management.Automation.ErrorRecord]) -and (-not $_.ToString().StartsWith("Switched to branch")) }
+		$ErrorsInOutput = $Output | Where-Object -FilterScript { ($_ -is [System.Management.Automation.ErrorRecord]) -and (-not $_.ToString().StartsWith('Switched to branch')) }
 		if (($ErrorsInOutput | Measure-Object | Select-Object -ExpandProperty Count) -gt 0)
 		{
 			$ErrorsInOutput | ForEach-Object -Process { Write-Error -ErrorRecord $_ }

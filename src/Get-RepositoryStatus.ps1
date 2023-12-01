@@ -16,7 +16,7 @@ function Get-RepositoryStatus
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\"
+		[string]$Repository = '.\'
 	)
 	process
 	{
@@ -33,7 +33,7 @@ function Get-RepositoryStatus
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
@@ -44,13 +44,13 @@ function Get-RepositoryStatus
 		}
 		foreach ($line in $Output)
 		{
-			if ($line.StartsWith("# branch.oid"))
+			if ($line.StartsWith('# branch.oid'))
 			{
-				$RepositoryData | Add-Member -MemberType NoteProperty -Name "CurrentCommit" -Value ($line.Substring(13))
+				$RepositoryData | Add-Member -MemberType NoteProperty -Name 'CurrentCommit' -Value ($line.Substring(13))
 			}
-			elseif ($line.StartsWith("# branch.head"))
+			elseif ($line.StartsWith('# branch.head'))
 			{
-				$RepositoryData | Add-Member -MemberType NoteProperty -Name "CurrentBranch" -Value ($line.Substring(14))
+				$RepositoryData | Add-Member -MemberType NoteProperty -Name 'CurrentBranch' -Value ($line.Substring(14))
 			}
 			elseif ($line -cmatch '1\s([\.MADRCU\?\!][\.MDUA]?)\s(N\.\.\.)\s([0-7]{6})\s([0-7]{6})\s([0-7]{6})\s([0-9a-f]{40})\s([0-9a-f]{40})\s(\S+)')
 			{
@@ -69,14 +69,14 @@ function Get-RepositoryStatus
 					Path = (Join-Path -Path $Repository -ChildPath $matches[10])
 					Status = $matches[1]
 					OriginalPath = (Join-Path -Path $Repository -ChildPath $matches[11])
-					IsMove = ($matches[8] -eq "C")
+					IsMove = ($matches[8] -eq 'C')
 				}) | Out-Null
 			}
 			elseif ($line -cmatch '\?\s(\S+)')
 			{
 				$Files.Add([PSCustomObject]@{
 					Path = (Join-Path -Path $Repository -ChildPath $matches[1])
-					Status = "??"
+					Status = '??'
 				}) | Out-Null
 			}
 			else
@@ -84,7 +84,7 @@ function Get-RepositoryStatus
 				Write-Verbose -Message "Ignoring $line"
 			}
 		}
-		$RepositoryData | Add-Member -MemberType NoteProperty -Name "Files" -Value $Files
+		$RepositoryData | Add-Member -MemberType NoteProperty -Name 'Files' -Value $Files
 		Write-Output $RepositoryData
 	}
 }

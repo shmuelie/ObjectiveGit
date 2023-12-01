@@ -16,7 +16,7 @@ function Restore-Changes
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\"
+		[string]$Repository = '.\'
 	)
 	process
 	{
@@ -30,7 +30,7 @@ function Restore-Changes
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }

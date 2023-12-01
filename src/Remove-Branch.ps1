@@ -26,10 +26,10 @@ function Remove-Branch
 	param(
 		[Parameter(Mandatory=$True,ValueFromPipeline=$True)]
 		[string]$Branch,
-		[string]$Repository = ".\",
-		[Alias("f")]
+		[string]$Repository = '.\',
+		[Alias('f')]
 		[switch]$Force = $False,
-		[Alias("r")]
+		[Alias('r')]
 		[switch]$Remote = $False
 	)
 	process
@@ -39,11 +39,11 @@ function Remove-Branch
 		$ExtendedCLI = ""
 		if ($Remote)
 		{
-			$ExtendedCLI += " -r"
+			$ExtendedCLI += ' -r'
 		}
 		if ($Force)
 		{
-			$ExtendedCLI += " -f"
+			$ExtendedCLI += ' -f'
 		}
 		$Output = (Invoke-Expression -Command "git -C $Repository branch$ExtendedCLI $Branch") 2>&1
 		if (($LASTEXITCODE -eq 128) -or($LASTEXITCODE -eq -1))
@@ -53,7 +53,7 @@ function Remove-Branch
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }

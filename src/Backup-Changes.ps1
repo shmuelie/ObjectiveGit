@@ -28,32 +28,32 @@ function Backup-Changes
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory=$False,Position=1,ValueFromPipeline=$True)]
-		[string]$Repository = ".\",
-		[Alias("k")]
+		[string]$Repository = '.\',
+		[Alias('k')]
 		[switch]$KeepIndex = $False,
-		[Alias("u")]
+		[Alias('u')]
 		[switch]$IncludeUntracked = $False,
-		[Alias("a")]
+		[Alias('a')]
 		[switch]$All = $False,
-		[Alias("m")]
+		[Alias('m')]
 		[string]$Message = $null
 	)
 	process
 	{
 		$Repository = Resolve-Path -Path $Repository
 		Write-Verbose -Message "Stashing changes in $Repository"
-		$ExtendedCLI = "";
+		$ExtendedCLI = '';
 		if ($KeepIndex)
 		{
-			$ExtendedCLI += " --keep-index"
+			$ExtendedCLI += ' --keep-index'
 		}
 		if ($IncludeUntracked)
 		{
-			$ExtendedCLI += " --include--untracked"
+			$ExtendedCLI += ' --include--untracked'
 		}
 		if ($All)
 		{
-			$ExtendedCLI += " --all"
+			$ExtendedCLI += ' --all'
 		}
 		if ($Message -ne $null)
 		{
@@ -67,7 +67,7 @@ function Backup-Changes
 		}
 		if ($LASTEXITCODE -eq 129)
 		{
-			Write-Error -Message "Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit." -Category SyntaxError
+			Write-Error -Message 'Bug with ObjectiveGit. Please file a bug at https://github.com/SamuelEnglard/ObjectiveGit.' -Category SyntaxError
 			return
 		}
 		$ErrorsInOutput = $Output | Where-Object -FilterScript { $_ -is [System.Management.Automation.ErrorRecord] }
